@@ -2,7 +2,7 @@
   // :: 수치 및 UI 초기화
   this.InitStatus();
 
-  this.setInterval(this.Update, 10);
+  this.setInterval(this.Update, 1000);
   this.ShowCurrentTime();
 }
 function Update() {
@@ -61,9 +61,9 @@ function InitStatus() {
   // :: 현재 상태
   this.nState = new Array("Focus", "Short Break", "Long Break");
   // :: 현재 타이머
-  this.iTimeFocus = 1;
-  this.iTimeBreakShort = 1;
-  this.iTimeBreakLong = 1;
+  this.iTimeFocus = 25;
+  this.iTimeBreakShort = 5;
+  this.iTimeBreakLong = 30;
   this.iDoTimer = false;
 
   // :: 현재 진행도
