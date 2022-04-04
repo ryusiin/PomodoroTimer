@@ -1,0 +1,54 @@
+﻿html {
+  background: #e5e5e5;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+}
+#SECTION_Pomodoro {
+  text-align: center;
+}
+#SECTION_Progress {
+  width: 540px;
+  text-align: left;
+  margin: 0px auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+}
+#SECTION_Progress > div {
+  margin-right: 10px;
+  width: 42px;
+  height: 42px;
+
+  background: #c4c4c4;
+  border-radius: 21px;
+}
+#SECTION_MainTimer {
+  width: 540px;
+  height: 245px;
+  background: #d54949;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  padding: 0px;
+  margin: 0px auto;
+
+  color: #313131;
+}
+#TEXT_State {
+  font-size: 30px;
+  margin: 0px;
+  line-height: 36px;
+  align-items: center;
+  text-align: center;
+
+  color: #313131;
+}
+#TEXT_Timer {
+  margin: 0px;
+  font-size: 128px;
+  text-align: center;
+  justify-self: center;
+}
