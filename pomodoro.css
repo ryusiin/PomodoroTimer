@@ -52,3 +52,22 @@
   text-align: center;
   justify-self: center;
 }
+#SECTION_Button {
+  margin: 0px auto;
+  margin-top: 10px;
+  display: flex;
+  width: 540px;
+  justify-content: space-between;
+}
+#SECTION_Button > button {
+  background: #d54949;
+  font-family: "Inter";
+  color: #313131;
+  width: 170px;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 48px;
+  text-align: center;
+  border: 0px;
+  border-radius: 10px;
+}
