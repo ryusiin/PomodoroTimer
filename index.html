@@ -4,7 +4,15 @@
     <meta charset="utf-8" />
     <title>Pomodoro Timer</title>
     <script src="./pomodoro.js"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./pomodoro.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
   <body onload="Start();">
     <p id="TEXT_CurrentTime"></p>
@@ -15,15 +23,59 @@
         <div></div>
         <div></div>
         <div></div>
+        <section id="SECTION_Icon">
+          <img
+            src="./Image/outline_refresh_black_24dp.png"
+            onclick="ResetPomodoro()"
+          />
+          <img
+            src="./Image/outline_settings_black_24dp.png"
+            onclick="ShowSettings()"
+          />
+        </section>
       </div>
-      <section id="SECTION_MainTimer">
-        <p id="TEXT_State"></p>
-        <p id="TEXT_Timer">15:00</p>
-      </section>
-      <section id="SECTION_Button">
-        <button id="BUTTON_Start" onclick="DoTimer(true)">START</button>
-        <button id="BUTTON_Stop" onclick="DoTimer(false)">STOP</button>
+      <section id="SECTION_Timer">
+        <section id="SECTION_MainTimer" onclick="DoTimer();">
+          <section id="timer">
+            <p id="TEXT_State"></p>
+            <p id="TEXT_Timer">15:00</p>
+          </section>
+        </section>
+        <!-- Rounded switch -->
+        <label class="switch">
+          <input type="checkbox" id="BUTTON_Auto" onclick="DoAuto();" />
+          <span class="slider round"></span>
+        </label>
       </section>
     </section>
+
+    <!-- Modal -->
+    <section class="modal" id="SECTION_Modal">
+      <section id="SECTION_Settings">
+        <img
+          src="./Image/outline_settings_black_24dp.png"
+          onclick="ShowSettings()"
+        />
+        <hr />
+        <section id="SECTION_Setting_Time">
+          <div>
+            <div>Focus</div>
+            <input type="number" min="1" max="60" />
+          </div>
+          <div>
+            <div>Short<br />Break</div>
+            <input type="number" min="1" max="60" />
+          </div>
+          <div>
+            <div>Long<br />Break</div>
+            <input type="number" min="1" max="60" />
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <footer id="footer">
+      Copyright 2022. Future Cat Labs. All rights reserved.
+    </footer>
   </body>
 </html>
