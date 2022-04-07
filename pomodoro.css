@@ -218,7 +218,7 @@ hr {
   margin-top: 10px;
 }
 #SECTION_Setting_Time {
-  width: 440px;
+  width: 410px;
   height: 100px;
 
   display: flex;
@@ -250,13 +250,61 @@ hr {
 #SECTION_Setting_Time > div:nth-child(1) > div {
   background: #db7b7b;
 }
-
 #SECTION_Setting_Time > div:nth-child(2) > div {
   background: #91c7e5;
 }
-
 #SECTION_Setting_Time > div:nth-child(3) > div {
   background: #a4f8de;
 }
 #SECTION_Setting_Time > div > input {
+  margin-left: 20px;
+  width: 80px;
+  height: 30px;
+  border: 0px;
+
+  font-size: 20px;
+  font-family: "Inter";
+  font-style: border;
+  font-weight: 600;
+
+  background: #9b9b9b;
+
+  text-align: center;
+}
+#SECTION_Finish_Time {
+  width: 385px;
+  height: 30px;
+
+  margin: 0px auto;
+  margin-top: 10px;
+  display: flex;
+
+  border-radius: 10px;
+
+  background: #9b9b9b;
+}
+#SECTION_Finish_Time > input {
+  width: 50px;
+  height: 20px;
+  margin-top: 4px;
+  background: #e7e7e7;
+  border: 0px;
+  margin-left: 10px;
+  text-align: center;
+  border-radius: 5px;
+
+  font-size: 15px;
+  font-family: "Inter";
+  font-style: border;
+  font-weight: 600;
+}
+#P_Explain_Finish_Time {
+  width: 230px;
+  height: 30px;
+
+  margin: 3px;
+  text-align: center;
+}
+#TEXT_EndTime {
+  width: 200px;
 }

@@ -16,6 +16,7 @@
   </head>
   <body onload="Start();">
     <p id="TEXT_CurrentTime"></p>
+    <p id="TEXT_EndTime"></p>
     <section id="SECTION_Pomodoro">
       <div id="SECTION_Progress">
         <div></div>
@@ -60,16 +61,21 @@
         <section id="SECTION_Setting_Time">
           <div>
             <div>Focus</div>
-            <input type="number" min="1" max="60" />
+            <input type="number" id="INPUT_Time_Focus" min="1" max="60" />
           </div>
           <div>
             <div>Short<br />Break</div>
-            <input type="number" min="1" max="60" />
+            <input type="number" id="INPUT_Time_ShortBreak" min="1" max="60" />
           </div>
           <div>
             <div>Long<br />Break</div>
-            <input type="number" min="1" max="60" />
+            <input type="number" id="INPUT_Time_LongBreak" min="1" max="60" />
           </div>
+        </section>
+        <section id="SECTION_Finish_Time">
+          <p id="P_Explain_Finish_Time">Finish Time</p>
+          <input type="number" id="INPUT_Time_Finish_Hour" min="0" max="23" />
+          <input type="number" id="INPUT_Time_Finish_Minute" min="0" max="59" />
         </section>
       </section>
     </section>
