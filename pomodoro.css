@@ -1,5 +1,4 @@
 ﻿html {
-  background: #e5e5e5;
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
@@ -26,9 +25,8 @@ img {
 }
 #SECTION_Progress > #SECTION_Icon {
   margin-left: auto;
-  background: #e5e5e5;
 }
-#SECTION_Progress > #SECTION_Icon > img:nth-child(2) {
+#SECTION_Progress > #SECTION_Icon > img:last-child {
   margin-right: 0px;
 }
 #SECTION_Progress > #SECTION_Icon > img:hover {
@@ -41,17 +39,26 @@ img {
 .color_focus:hover {
   background: #d44949;
 }
+.color_focus_bg {
+  background: #f0caca;
+}
 .color_shortBreak {
   background: #91c7e5;
 }
 .color_shortBreak:hover {
   background: #49a2d4;
 }
+.color_shortBreak_bg {
+  background: #d3e8f4;
+}
 .color_longBreak {
   background: #a4f8de;
 }
 .color_longBreak:hover {
   background: #7df5d1;
+}
+.color_longBreak_bg {
+  background: #dafcf1;
 }
 #SECTION_MainTimer {
   width: 540px;

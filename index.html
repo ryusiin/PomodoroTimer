@@ -1,9 +1,8 @@
 ﻿<!DOCTYPE html>
-<html>
+<html id="HTML_Main">
   <head>
     <meta charset="utf-8" />
-    <title>Pomodoro Timer</title>
-    <script src="./pomodoro.js"></script>
+    <title id="TEXT_Title">Pomodoro Timer</title>
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -14,7 +13,7 @@
       rel="stylesheet"
     />
   </head>
-  <body onload="Start();">
+  <body>
     <p id="TEXT_CurrentTime"></p>
     <p id="TEXT_EndTime"></p>
     <section id="SECTION_Pomodoro">
@@ -26,17 +25,18 @@
         <div></div>
         <section id="SECTION_Icon">
           <img
-            src="./Image/outline_refresh_black_24dp.png"
-            onclick="ResetPomodoro()"
+            id="BUTTON_Skip"
+            src="./Image/outline_skip_next_black_24dp.png"
           />
+          <img id="BUTTON_Reset" src="./Image/outline_refresh_black_24dp.png" />
           <img
+            id="BUTTON_Setting"
             src="./Image/outline_settings_black_24dp.png"
-            onclick="ShowSettings()"
           />
         </section>
       </div>
       <section id="SECTION_Timer">
-        <section id="SECTION_MainTimer" onclick="DoTimer();">
+        <section id="SECTION_MainTimer">
           <section id="timer">
             <p id="TEXT_State"></p>
             <p id="TEXT_Timer">15:00</p>
@@ -44,7 +44,7 @@
         </section>
         <!-- Rounded switch -->
         <label class="switch">
-          <input type="checkbox" id="BUTTON_Auto" onclick="DoAuto();" />
+          <input type="checkbox" id="BUTTON_Auto" />
           <span class="slider round"></span>
         </label>
       </section>
@@ -53,10 +53,7 @@
     <!-- Modal -->
     <section class="modal" id="SECTION_Modal">
       <section id="SECTION_Settings">
-        <img
-          src="./Image/outline_settings_black_24dp.png"
-          onclick="ShowSettings()"
-        />
+        <img src="./Image/outline_settings_black_24dp.png" />
         <hr />
         <section id="SECTION_Setting_Time">
           <div>
@@ -85,3 +82,4 @@
     </footer>
   </body>
 </html>
+<script src="./pomodoro.js" type="module"></script>
