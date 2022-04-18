@@ -3,35 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <title id="TEXT_Title">Pomodoro Timer</title>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="./pomodoro.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
   </head>
   <body>
+    <section id="SECTION_Right">
+      <button id="BUTTON_Record">Record</button>
+      <button id="BUTTON_Setting">Setting</button>
+    </section>
     <p id="TEXT_CurrentTime"></p>
     <p id="TEXT_EndTime"></p>
     <section id="SECTION_Pomodoro">
       <div id="SECTION_Progress">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div id="BUTTON_Progress_1"></div>
+        <div id="BUTTON_Progress_2"></div>
+        <div id="BUTTON_Progress_3"></div>
+        <div id="BUTTON_Progress_4"></div>
+        <div id="BUTTON_Progress_5"></div>
         <section id="SECTION_Icon">
+          <img
+            id="BUTTON_Play"
+            src="./Image/outline_play_arrow_black_24dp.png"
+          />
+          <img id="BUTTON_Stop" src="./Image/outline_stop_black_24dp.png" />
           <img
             id="BUTTON_Skip"
             src="./Image/outline_skip_next_black_24dp.png"
-          />
-          <img id="BUTTON_Reset" src="./Image/outline_refresh_black_24dp.png" />
-          <img
-            id="BUTTON_Setting"
-            src="./Image/outline_settings_black_24dp.png"
           />
         </section>
       </div>
@@ -74,6 +70,10 @@
           <input type="number" id="INPUT_Time_Finish_Hour" min="0" max="23" />
           <input type="number" id="INPUT_Time_Finish_Minute" min="0" max="59" />
         </section>
+      </section>
+      <section id="SECTION_Records">
+        <p>FOCUS : <span id="SPAN_Record_Focus">0</span> min</p>
+        <p>BREAK : <span id="SPAN_Record_Break">0</span> min</p>
       </section>
     </section>
 

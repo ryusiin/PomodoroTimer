@@ -20,8 +20,16 @@ img {
   width: 42px;
   height: 42px;
 
-  background: #c4c4c4;
   border-radius: 21px;
+}
+#SECTION_Progress > div:nth-child(1),
+div:nth-child(2),
+div:nth-child(3),
+div:nth-child(4) {
+  background: #db7b7b;
+}
+#SECTION_Progress > div:nth-child(5) {
+  background: #a4f8de;
 }
 #SECTION_Progress > #SECTION_Icon {
   margin-left: auto;
@@ -30,8 +38,19 @@ img {
   margin-right: 0px;
 }
 #SECTION_Progress > #SECTION_Icon > img:hover {
-  background: #898989;
   cursor: pointer;
+}
+#BUTTON_Play,
+#BUTTON_Pause,
+#BUTTON_Stop,
+#BUTTON_Skip {
+  background: none;
+}
+#BUTTON_Play:hover,
+#BUTTON_Pause:hover,
+#BUTTON_Stop:hover,
+#BUTTON_Skip:hover {
+  background: #ffffff;
 }
 .color_focus {
   background: #db7b7b;
@@ -207,7 +226,8 @@ hr {
   border: 1px solid #d6d6d6;
 }
 
-#SECTION_Settings {
+#SECTION_Settings,
+#SECTION_Records {
   display: flex;
   background: #c4c4c4;
 
@@ -218,6 +238,9 @@ hr {
   margin-top: 50px;
 
   border-radius: 20px;
+}
+#SECTION_Records {
+  text-align: center;
 }
 
 #SECTION_Settings > img {
@@ -314,4 +337,46 @@ hr {
 }
 #TEXT_EndTime {
   width: 200px;
+}
+
+#SECTION_Right {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+#SECTION_Right > button {
+  border: 0px;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: "Inter";
+  font-style: border;
+  font-weight: 600;
+}
+#BUTTON_Setting {
+  color: #d54949;
+}
+#BUTTON_Setting:hover {
+  background: #d54949;
+  color: #ffffff;
+  cursor: pointer;
+}
+#BUTTON_Record {
+  color: #49a2d4;
+}
+#BUTTON_Record:hover {
+  background: #49a2d4;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#SECTION_Progress > div:nth-child(1):hover,
+#SECTION_Progress > div:nth-child(2):hover,
+#SECTION_Progress > div:nth-child(3):hover,
+#SECTION_Progress > div:nth-child(4):hover,
+#SECTION_Progress > div:nth-child(5):hover {
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 5px solid #ffffff;
 }

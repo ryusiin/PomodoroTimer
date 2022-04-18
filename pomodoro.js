@@ -16,7 +16,23 @@ function Update() {
   ShowCurrentTime();
   if (iDoTimer) {
     ReduceTimer();
+    ChangePlayImage_Pause();
+  } else {
+    ChangePlayImage_Play();
   }
+}
+function GetToday() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = ("0" + (now.getMonth() + 1)).slice(-2);
+  const day = ("0" + now.getDate()).slice(-2);
+  return `${year}-${month}-${day}`;
+}
+function ChangePlayImage_Play() {
+  BUTTON_Play.src = "./Image/outline_play_arrow_black_24dp.png";
+}
+function ChangePlayImage_Pause() {
+  BUTTON_Play.src = "./Image/outline_pause_black_24dp.png";
 }
 
 // :: 수치 및 UI 초기화
@@ -29,16 +45,27 @@ let TEXT_State; // : UI 상태
 let SECTION_Progress; // : UI 진행도
 let SECTION_MainTimer; // : UI 메인 타이머
 let SECTION_Settings; // : UI 설정
+let SECTION_Records;
 let SECTION_Modal; // : UI 모달
 let BUTTON_Auto; // : UI 버튼 Auto
 let BUTTON_Setting; // : UI 버튼 설정
 let BUTTON_Reset; // : UI 버튼 리셋
 let BUTTON_Skip; // : UI 버튼 스킵
+let BUTTON_Play; // : UI 버튼 플레이
+let BUTTON_Pause; // : UI 버튼 일시정지
+let BUTTON_Stop; // : UI 버튼 멈춤
+let BUTTON_Progress_1; // : UI 버튼 진행도 1
+let BUTTON_Progress_2; // : UI 버튼 진행도 2
+let BUTTON_Progress_3; // : UI 버튼 진행도 3
+let BUTTON_Progress_4; // : UI 버튼 진행도 4
+let BUTTON_Progress_5; // : UI 버튼 진행도 5
 let INPUT_Time_Focus; // : UI Input Focus
 let INPUT_Time_ShortBreak; // : UI Input Short Break
 let INPUT_Time_LongBreak; // : UI Input Long Break
 let INPUT_Time_Finish_Hour; // : UI Input Finish Hour
 let INPUT_Time_Finish_Minute; // : UI Input Finish Minute
+let SPAN_Record_Focus; // : UI Record Focus;
+let SPAN_Record_Break; // : UI Record Break;
 // :: Audio
 let nSound;
 let SOUND_AlarmEndBreakLong;
@@ -68,11 +95,20 @@ function InitStatus() {
   SECTION_Progress = document.getElementById("SECTION_Progress"); // : 현재 진행도
   SECTION_MainTimer = document.getElementById("SECTION_MainTimer"); // : 메인 타이머
   SECTION_Settings = document.getElementById("SECTION_Settings"); // : 설정
+  SECTION_Records = document.getElementById("SECTION_Records"); // : 기록
   SECTION_Modal = document.getElementById("SECTION_Modal"); // : 모달
   BUTTON_Auto = document.getElementById("BUTTON_Auto"); // : 버튼 Auto
   BUTTON_Setting = document.getElementById("BUTTON_Setting"); // : 버튼 설정
   BUTTON_Reset = document.getElementById("BUTTON_Reset"); // : 버튼 리셋
   BUTTON_Skip = document.getElementById("BUTTON_Skip"); // : 버튼 스킵
+  BUTTON_Play = document.getElementById("BUTTON_Play"); // : 버튼 플레이
+  BUTTON_Pause = document.getElementById("BUTTON_Pause"); // : 버튼 일시정지
+  BUTTON_Stop = document.getElementById("BUTTON_Stop"); // : 버튼 멈춤
+  BUTTON_Progress_1 = document.getElementById("BUTTON_Progress_1"); // : 버튼 진행 1
+  BUTTON_Progress_2 = document.getElementById("BUTTON_Progress_2"); // : 버튼 진행 2
+  BUTTON_Progress_3 = document.getElementById("BUTTON_Progress_3"); // : 버튼 진행 3
+  BUTTON_Progress_4 = document.getElementById("BUTTON_Progress_4"); // : 버튼 진행 4
+  BUTTON_Progress_5 = document.getElementById("BUTTON_Progress_5"); // : 버튼 진행 5
   INPUT_Time_Focus = document.getElementById("INPUT_Time_Focus"); // : Input Time Focus
   INPUT_Time_ShortBreak = document.getElementById("INPUT_Time_ShortBreak"); // : Input Time Short Break
   INPUT_Time_LongBreak = document.getElementById("INPUT_Time_LongBreak"); // : Input Time Long Break
@@ -80,6 +116,8 @@ function InitStatus() {
   INPUT_Time_Finish_Minute = document.getElementById(
     "INPUT_Time_Finish_Minute",
   ); // : Input Time Finish Mintue
+  SPAN_Record_Focus = document.getElementById("SPAN_Record_Focus"); // : Record Focus
+  SPAN_Record_Break = document.getElementById("SPAN_Record_Break"); // : Record Focus
 
   // :: 사운드
   SOUND_AlarmEndFocus = new Audio("./Sound/sound_alarm_end_focus.mp3");
@@ -114,7 +152,7 @@ function InitStatus() {
   iProgress = 0;
 
   // :: 기본 Focus 설정
-  SetTimerFocus();
+  SetTimerFocus(true);
 }
 
 function UpdateSetting_CategoryTime() {
@@ -195,10 +233,49 @@ function AddButtonScenarios() {
   AddButtonScenario_MainTimer();
   AddButtonScenario_Auto();
 
+  // :: 재생, 멈춤, 단계 초기화
+  AddButtonScenario_Play();
+  AddButtonScenario_Stop();
+  AddButtonScenario_Skip();
+
   // :: Upper Buttons
   AddButtonScenario_Setting();
-  AddButtonScenario_Reset();
-  AddButtonScenario_Skip();
+  AddButtonScenario_Record();
+
+  // :: 진행
+  AddButtonScenario_Progress();
+}
+function AddButtonScenario_Progress() {
+  BUTTON_Progress_1.addEventListener("click", (e) => {
+    ChangeProgress(1);
+  });
+  BUTTON_Progress_2.addEventListener("click", (e) => {
+    ChangeProgress(2);
+  });
+  BUTTON_Progress_3.addEventListener("click", (e) => {
+    ChangeProgress(3);
+  });
+  BUTTON_Progress_4.addEventListener("click", (e) => {
+    ChangeProgress(4);
+  });
+  BUTTON_Progress_5.addEventListener("click", (e) => {
+    ChangeProgress(5);
+  });
+}
+function AddButtonScenario_Play() {
+  BUTTON_Play.addEventListener("click", (e) => {
+    PlayTimer();
+  });
+}
+function AddButtonScenario_Pause() {
+  BUTTON_Pause.addEventListener("click", (e) => {
+    PauseTimer();
+  });
+}
+function AddButtonScenario_Stop() {
+  BUTTON_Stop.addEventListener("click", (e) => {
+    ResetTimer_Forced();
+  });
 }
 function AddButtonScenario_Skip() {
   BUTTON_Skip.addEventListener("click", (e) => {
@@ -215,6 +292,11 @@ function AddButtonScenario_Setting() {
     ShowSettings();
   });
 }
+function AddButtonScenario_Record() {
+  BUTTON_Record.addEventListener("click", (e) => {
+    ShowRecords();
+  });
+}
 function AddButtonScenario_Auto() {
   BUTTON_Auto.addEventListener("click", (e) => {
     DoAuto();
@@ -227,7 +309,7 @@ function AddButtonScenario_MainTimer() {
 }
 function AddButtonSecnario_Modal() {
   SECTION_Modal.addEventListener("click", (e) => {
-    if (e.target === SECTION_Modal) HideSettings();
+    if (e.target === SECTION_Modal) HideModals();
   });
 }
 function AddButtonScenario_Input_Focus() {
@@ -302,14 +384,27 @@ function ShowEndTime() {
 function ShowSettings() {
   SECTION_Modal.style.display = "block";
   SECTION_Settings.style.display = "block";
+  SECTION_Records.style.display = "none";
 
   UpdateSetting_CategoryTime();
   UpdateSetting_FinishTime();
 }
+function ShowRecords() {
+  SECTION_Modal.style.display = "block";
+  SECTION_Settings.style.display = "none";
+  SECTION_Records.style.display = "block";
 
-function HideSettings() {
+  UpdateRecords();
+}
+function UpdateRecords() {
+  SPAN_Record_Focus.innerHTML = Math.floor(GetRecord_Focus() / 60);
+  SPAN_Record_Break.innerHTML = Math.floor(GetRecord_Break() / 60);
+}
+
+function HideModals() {
   SECTION_Modal.style.display = "none";
   SECTION_Settings.style.display = "none";
+  SECTION_Records.style.display = "none";
 
   ResetTimer();
   ShowEndTime();
@@ -320,7 +415,7 @@ function ResetPomodoro() {
   iDoTimer = false;
   iCurrentTime_Minute = iTimeFocus;
   iCurrentTime_Second = 0;
-  SetTimerFocus();
+  SetTimerFocus(true);
 }
 
 // :: 현재 타이머
@@ -344,11 +439,24 @@ function DoTimer() {
     SOUND_TimerOff.play();
   }
 }
+function PlayTimer() {
+  // :: EXIT : 이미 타이머가 실행되고 있으면
+  if (iDoTimer === true) return;
+
+  DoTimer();
+}
+function PauseTimer() {
+  // :: EXIT : 이미 타이머가 멈춰 있으면
+  if (iDoTimer === false) return;
+
+  DoTimer();
+}
 
 function DoAuto() {
   iDoAuto = BUTTON_Auto.checked;
 }
 
+let iRecordTime = -1;
 function ReduceTimer() {
   UpdateTimer();
   if (iCurrentTime_Minute <= 0 && iCurrentTime_Second <= 0) {
@@ -360,7 +468,44 @@ function ReduceTimer() {
     const seconds = Math.round(diff % 60);
     iCurrentTime_Minute = minutes;
     iCurrentTime_Second = seconds;
+
+    // :: 기록
+    const recordTime = iTimeFocus * 60 - diff;
+    if (iRecordTime !== recordTime) {
+      iRecordTime = recordTime;
+      if (iState === 0) {
+        PlusRecord_Focus();
+      } else if (iState === 1 || iState === 2) {
+        PlusRecord_Break();
+      }
+    }
   }
+}
+function PlusRecord_Focus() {
+  const id = GetToday() + "_Focus";
+  if (window.localStorage.getItem(id) === null) {
+    window.localStorage.setItem(id, 0);
+  } else {
+    const currentCount = Number(window.localStorage.getItem(id)) + 1;
+    window.localStorage.setItem(id, currentCount);
+  }
+}
+function GetRecord_Focus() {
+  const id = GetToday() + "_Focus";
+  return Number(window.localStorage.getItem(id));
+}
+function PlusRecord_Break() {
+  const id = GetToday() + "_Break";
+  if (window.localStorage.getItem(id) === null) {
+    window.localStorage.setItem(id, 0);
+  } else {
+    const currentCount = Number(window.localStorage.getItem(id)) + 1;
+    window.localStorage.setItem(id, currentCount);
+  }
+}
+function GetRecord_Break() {
+  const id = GetToday() + "_Break";
+  return Number(window.localStorage.getItem(id));
 }
 
 function UpdateTimer() {
@@ -373,7 +518,7 @@ function UpdateTimer() {
   ChangeTitle(`${time} : ${nState[iState]}`);
 }
 
-function SetTimerFocus() {
+function SetTimerFocus(_plus) {
   iState = 0;
   iCurrentTime_Minute = iTimeFocus;
   iCurrentTime_Second = 0;
@@ -384,7 +529,9 @@ function SetTimerFocus() {
   SECTION_MainTimer.className = className;
   HTML_Main.className = className + "_bg";
 
-  PlusProgress();
+  if (_plus) {
+    PlusProgress();
+  }
 }
 
 function SetTimerBreakShort() {
@@ -422,7 +569,7 @@ function EndTimer() {
     else SetTimerBreakShort();
   } else if (iState == 1 || iState == 2) {
     if (iState == 2) ResetProgress();
-    SetTimerFocus();
+    SetTimerFocus(true);
   }
 
   // :: Auto일 때 자동 실행
@@ -439,19 +586,34 @@ function ResetProgress() {
   // :: 칠하기
   for (let index = 0; index < count; index++) {
     SECTION_Progress.children[index].style.backgroundColor = GetColor(-1);
+    SECTION_Progress.children[index].style.hoverBackgroundColor = "#FFFFFF";
   }
 }
 
+function ChangeProgress(number) {
+  // :: 이미 진행중이면 멈추기
+  if (iDoTimer) PauseTimer();
+
+  iProgress = number;
+  if (iProgress === 5) {
+    SetTimerBreakLong();
+  } else {
+    SetTimerFocus(false);
+  }
+
+  UpdateProgress();
+}
 function PlusProgress() {
   iProgress += 1;
   UpdateProgress();
 }
 
 function UpdateProgress() {
-  for (let index = 0; index < iProgress; index++) {
+  for (let index = 0; index < 5; index++) {
     SECTION_Progress.children[index].style.backgroundColor = GetColor(
       index + 1,
     );
+    SECTION_Progress.children[index].style.hoverBackgroundColor = "#FFFFFF";
   }
 }
 function GetColor(_index) {
@@ -469,6 +631,19 @@ function ResetTimer() {
   // :: 이미 진행중이면 return
   if (iDoTimer) return;
 
+  if (iState == 0) {
+    iCurrentTime_Minute = iTimeFocus;
+  } else if (iState == 1) {
+    iCurrentTime_Minute = iTimeBreakShort;
+  } else if (iState == 2) {
+    iCurrentTime_Minute = iTimeBreakLong;
+  }
+  UpdateTimer();
+}
+function ResetTimer_Forced() {
+  if (iDoTimer) PauseTimer();
+
+  iCurrentTime_Second = 0;
   if (iState == 0) {
     iCurrentTime_Minute = iTimeFocus;
   } else if (iState == 1) {
