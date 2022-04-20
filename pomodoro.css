@@ -240,7 +240,7 @@ hr {
   border-radius: 20px;
 }
 #SECTION_Records {
-  text-align: center;
+  text-align: left;
 }
 
 #SECTION_Settings > img {
@@ -379,4 +379,31 @@ hr {
   cursor: pointer;
   box-sizing: border-box;
   border: 5px solid #ffffff;
+}
+
+#TABLE_Focus {
+  top: 20px;
+  margin: 0px auto;
+  width: 380px;
+  height: 300px;
+  text-align: center;
+}
+
+#BUTTON_Record_Focus {
+  border: 0px;
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: "Inter";
+  font-style: border;
+  font-weight: 600;
+  color: #d54949;
+}
+#BUTTON_Record_Focus:hover {
+  background: #d54949;
+  color: #ffffff;
+  cursor: pointer;
 }

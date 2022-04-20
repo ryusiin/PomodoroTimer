@@ -21,12 +21,29 @@ function Update() {
     ChangePlayImage_Play();
   }
 }
-function GetToday() {
+function GetToday(_subtract = 0) {
   const now = new Date();
+
+  // :: 마이너스
+  var daySubtract = 24 * 60 * 60 * 1000 * _subtract;
+  now.setTime(now.getTime() - daySubtract);
+
   const year = now.getFullYear();
   const month = ("0" + (now.getMonth() + 1)).slice(-2);
   const day = ("0" + now.getDate()).slice(-2);
   return `${year}-${month}-${day}`;
+}
+
+function GetDate(_subtract = 0) {
+  const now = new Date();
+
+  // :: 마이너스
+  var daySubtract = 24 * 60 * 60 * 1000 * _subtract;
+  now.setTime(now.getTime() - daySubtract);
+
+  const month = ("0" + (now.getMonth() + 1)).slice(-2);
+  const day = ("0" + now.getDate()).slice(-2);
+  return `${month}-${day}`;
 }
 function ChangePlayImage_Play() {
   BUTTON_Play.src = "./Image/outline_play_arrow_black_24dp.png";
@@ -66,6 +83,21 @@ let INPUT_Time_Finish_Hour; // : UI Input Finish Hour
 let INPUT_Time_Finish_Minute; // : UI Input Finish Minute
 let SPAN_Record_Focus; // : UI Record Focus;
 let SPAN_Record_Break; // : UI Record Break;
+// :: Chart
+let CHART_Day_0;
+let CHART_Day_0_Data;
+let CHART_Day_1;
+let CHART_Day_1_Data;
+let CHART_Day_2;
+let CHART_Day_2_Data;
+let CHART_Day_3;
+let CHART_Day_3_Data;
+let CHART_Day_4;
+let CHART_Day_4_Data;
+let CHART_Day_5;
+let CHART_Day_5_Data;
+let CHART_Day_6;
+let CHART_Day_6_Data;
 // :: Audio
 let nSound;
 let SOUND_AlarmEndBreakLong;
@@ -118,6 +150,21 @@ function InitStatus() {
   ); // : Input Time Finish Mintue
   SPAN_Record_Focus = document.getElementById("SPAN_Record_Focus"); // : Record Focus
   SPAN_Record_Break = document.getElementById("SPAN_Record_Break"); // : Record Focus
+  // :: 차트
+  CHART_Day_0 = document.getElementById("CHART_Day_0");
+  CHART_Day_0_Data = document.getElementById("CHART_Day_0_Data");
+  CHART_Day_1 = document.getElementById("CHART_Day_1");
+  CHART_Day_1_Data = document.getElementById("CHART_Day_1_Data");
+  CHART_Day_2 = document.getElementById("CHART_Day_2");
+  CHART_Day_2_Data = document.getElementById("CHART_Day_2_Data");
+  CHART_Day_3 = document.getElementById("CHART_Day_3");
+  CHART_Day_3_Data = document.getElementById("CHART_Day_3_Data");
+  CHART_Day_4 = document.getElementById("CHART_Day_4");
+  CHART_Day_4_Data = document.getElementById("CHART_Day_4_Data");
+  CHART_Day_5 = document.getElementById("CHART_Day_5");
+  CHART_Day_5_Data = document.getElementById("CHART_Day_5_Data");
+  CHART_Day_6 = document.getElementById("CHART_Day_6");
+  CHART_Day_6_Data = document.getElementById("CHART_Day_6_Data");
 
   // :: 사운드
   SOUND_AlarmEndFocus = new Audio("./Sound/sound_alarm_end_focus.mp3");
@@ -397,8 +444,49 @@ function ShowRecords() {
   UpdateRecords();
 }
 function UpdateRecords() {
-  SPAN_Record_Focus.innerHTML = Math.floor(GetRecord_Focus() / 60);
-  SPAN_Record_Break.innerHTML = Math.floor(GetRecord_Break() / 60);
+  // :: Max 확인
+  let max = 0;
+  let focusStatus = [];
+  for (let i = 0; i < 7; i++) {
+    focusStatus[i] = Math.floor(GetRecord_Focus(i) / 60);
+    if (max < focusStatus[i]) max = focusStatus[i];
+  }
+
+  // :: 차트 표시
+  CHART_Day_0.innerHTML = GetDate(0);
+  CHART_Day_0_Data.innerHTML =
+    focusStatus[0] === 0 ? "" : focusStatus[0] + "<br/>min";
+  CHART_Day_0_Data.style.cssText += `--size: calc(${focusStatus[0]} / ${max});`;
+
+  CHART_Day_1.innerHTML = GetDate(1);
+  CHART_Day_1_Data.innerHTML =
+    focusStatus[1] === 0 ? "" : focusStatus[1] + "<br/>min";
+  CHART_Day_1_Data.style.cssText += `--size: calc(${focusStatus[1]} / ${max});`;
+
+  CHART_Day_2.innerHTML = GetDate(2);
+  CHART_Day_2_Data.innerHTML =
+    focusStatus[2] === 0 ? "" : focusStatus[2] + "<br/>min";
+  CHART_Day_2_Data.style.cssText += `--size: calc(${focusStatus[2]} / ${max});`;
+
+  CHART_Day_3.innerHTML = GetDate(3);
+  CHART_Day_3_Data.innerHTML =
+    focusStatus[3] === 0 ? "" : focusStatus[3] + "<br/>min";
+  CHART_Day_3_Data.style.cssText += `--size: calc(${focusStatus[3]} / ${max});`;
+
+  CHART_Day_4.innerHTML = GetDate(4);
+  CHART_Day_4_Data.innerHTML =
+    focusStatus[4] === 0 ? "" : focusStatus[4] + "<br/>min";
+  CHART_Day_4_Data.style.cssText += `--size: calc(${focusStatus[4]} / ${max});`;
+
+  CHART_Day_5.innerHTML = GetDate(5);
+  CHART_Day_5_Data.innerHTML =
+    focusStatus[5] === 0 ? "" : focusStatus[5] + "<br/>min";
+  CHART_Day_5_Data.style.cssText += `--size: calc(${focusStatus[5]} / ${max});`;
+
+  CHART_Day_6.innerHTML = GetDate(6);
+  CHART_Day_6_Data.innerHTML =
+    focusStatus[6] === 0 ? "" : focusStatus[6] + "<br/>min";
+  CHART_Day_6_Data.style.cssText += `--size: calc(${focusStatus[6]} / ${max});`;
 }
 
 function HideModals() {
@@ -490,8 +578,8 @@ function PlusRecord_Focus() {
     window.localStorage.setItem(id, currentCount);
   }
 }
-function GetRecord_Focus() {
-  const id = GetToday() + "_Focus";
+function GetRecord_Focus(_subtract = 0) {
+  const id = GetToday(_subtract) + "_Focus";
   return Number(window.localStorage.getItem(id));
 }
 function PlusRecord_Break() {

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title id="TEXT_Title">Pomodoro Timer</title>
     <link rel="stylesheet" href="./pomodoro.css" />
+    <link rel="stylesheet" href="./Additional/charts.min.css" />
   </head>
   <body>
     <section id="SECTION_Right">
@@ -72,8 +73,40 @@
         </section>
       </section>
       <section id="SECTION_Records">
-        <p>FOCUS : <span id="SPAN_Record_Focus">0</span> min</p>
-        <p>BREAK : <span id="SPAN_Record_Break">0</span> min</p>
+        <button id="BUTTON_Record_Focus">Focus</button>
+        <table
+          class="charts-css column show-labels reverse-data data-spacing-5"
+          id="TABLE_Focus"
+        >
+          <tr>
+            <th scope="row" id="CHART_Day_0">0</th>
+            <td id="CHART_Day_0_Data" style="--color: #db7b7b">0</td>
+          </tr>
+          <tr>
+            <th scope="row" id="CHART_Day_1">1</th>
+            <td id="CHART_Day_1_Data" style="--color: #db7b7b">1</td>
+          </tr>
+          <tr>
+            <th scope="row" id="CHART_Day_2">2</th>
+            <td id="CHART_Day_2_Data" style="--color: #db7b7b">2</td>
+          </tr>
+          <tr>
+            <th scope="row" id="CHART_Day_3">3</th>
+            <td id="CHART_Day_3_Data" style="--color: #db7b7b">3</td>
+          </tr>
+          <tr>
+            <th scope="row" id="CHART_Day_4">4</th>
+            <td id="CHART_Day_4_Data" style="--color: #db7b7b">4</td>
+          </tr>
+          <tr>
+            <th scope="row" id="CHART_Day_5">5</th>
+            <td id="CHART_Day_5_Data" style="--color: #db7b7b">5</td>
+          </tr>
+          <tr>
+            <th scope="row" id="CHART_Day_6">6</th>
+            <td id="CHART_Day_6_Data" style="--color: #db7b7b">6</td>
+          </tr>
+        </table>
       </section>
     </section>
 
