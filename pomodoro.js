@@ -448,7 +448,7 @@ function UpdateRecords() {
   let max = 0;
   let focusStatus = [];
   for (let i = 0; i < 7; i++) {
-    focusStatus[i] = Math.floor(GetRecord_Focus(i) / 60);
+    focusStatus[i] = Math.round(GetRecord_Focus(i) / 60);
     if (max < focusStatus[i]) max = focusStatus[i];
   }
 
